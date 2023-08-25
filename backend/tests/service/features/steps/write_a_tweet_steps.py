@@ -1,5 +1,5 @@
 from behave import fixture, given, use_fixture, when, then, step
-from mock import MagicMock
+
 from twitter.domain.repository.tweet_repository import TweetRepositry
 from twitter.domain.models import User
 

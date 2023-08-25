@@ -15,3 +15,9 @@ interesting, the context is similar to what I've done in the past but fixtures a
 Haven't decided on a database yet so using an in-memory repository for now.
 
 Mostly following my usual pattern of splitting domain and service with an API layer to come later.
+
+I'm trying out `invoke` to help with the more complec test running required by the Behave
+test-runner. I'm also having a terrible time trying to get the dev container to pick up on file
+events, seems to be an issue with Docker Desktop in windows with WSL2. I'm going to try checking
+out the repo directly into a WSL2 distro and running from there, it's suggested that may work
+better.
