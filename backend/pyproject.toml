@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "twitter"
+version = "0.1.0"
+description = ""
+authors = ["Matthew Coyle <mattcoyle48@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.102.0"
+
+
+[tool.poetry.group.test.dependencies]
+behave = "^1.2.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
