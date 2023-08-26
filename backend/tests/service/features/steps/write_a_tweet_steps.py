@@ -23,7 +23,7 @@ def write_a_tweet(context):
     use_fixture(tweet_service, context)
     context.tweet_text = "tweet_text"
     context.tweet = context.tweet_service.create_tweet(
-        author=context.user, tweet_text="My tweet text"
+        author_id=context.user.id, tweet_text="My tweet text"
     )
 
 
