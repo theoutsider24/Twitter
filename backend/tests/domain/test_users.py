@@ -1,15 +1,15 @@
 from pytest import fixture
 
-from twitter.domain.models import User, Tweet
+from twitter.domain.models import Tweet, User
 
 
 class TestUserIsAuthor:
     @fixture
     def user(self):
-        return User(id="1", username="test")
+        return User(user_id="1", username="test")
 
     def test_user_is_author(self, user):
-        tweet = Tweet(author_id=user.id, text="test")
+        tweet = Tweet(author_id=user.user_id, text="test")
         assert user.is_author(tweet)
 
     def test_user_is_not_author(self, user):

@@ -1,6 +1,4 @@
-from pytest import fixture
-
-from twitter.domain.models import User, Tweet
+from twitter.domain.models import Tweet
 
 
 class TestTweetCharacterLength:

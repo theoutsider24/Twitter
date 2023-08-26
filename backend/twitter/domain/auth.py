@@ -1,15 +1,19 @@
+from typing import Dict
+
 from jose import jwt
 
 
-def validate_token(token):
+class AuthException(Exception):
+    pass
+
+
+def validate_token(token) -> Dict:
     try:
         payload = jwt.decode(
             token, key=None, options={"verify_signature": False}, audience="core"
         )
         return payload
-    except jwt.ExpiredSignatureError:
-        raise Exception("Token has expired")
-    except jwt.JWTClaimsError:
-        raise Exception("Token is invalid")
-    except Exception:
-        raise Exception("Unable to parse authentication token")
+    except jwt.ExpiredSignatureError as exc:
+        raise AuthException("Token has expired") from exc
+    except jwt.JWTClaimsError as exc:
+        raise AuthException("Token is invalid") from exc

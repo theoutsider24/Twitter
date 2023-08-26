@@ -1,3 +1,5 @@
+from typing import List
+
 from twitter.domain.models import Tweet
 
 
@@ -8,5 +10,5 @@ class TweetRepositry:
     def add(self, tweet: Tweet):
         self.tweets.append(tweet)
 
-    def get_all(self):
+    def get_all(self) -> List[Tweet]:
         return self.tweets

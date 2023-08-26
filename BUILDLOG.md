@@ -1,6 +1,18 @@
 # Build Log
 
-## 2023-08-26
+
+## 2023-08-27
+
+Implemeted Auth0 - it's sooooooo easy. For now I'm trying to avoid having a user table at all
+and I'm generating user uuids in Auth0 on user registration and including them in JWT tokens.
+
+I'm a bit disappointed with Behave. The documentation is a bit lacking, the fixture system is
+less intuitive and having to use two test runners is complicated for running tests and generating
+coverage. I'm going to swap back to `pytest-bdd` but implement concepts such as the context. I'm
+going to copy the context class which allows a dict to act more like an object with arbitrary
+attributes to make the tests look a little nicer.
+
+## 2023-08-25
 
 Initialised repo! 🎉
 
