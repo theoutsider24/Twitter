@@ -1,3 +1,4 @@
 **/__pycache__
 backend/.coverage
 backend/coverage.xml
+**/node_modules
