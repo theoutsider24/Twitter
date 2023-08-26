@@ -10,8 +10,8 @@ class TweetService:
     def __init__(self, tweet_repository: TweetRepositry):
         self.tweet_repository = tweet_repository
 
-    def create_tweet(self, author_id: str, tweet_text: str) -> Tweet:
-        tweet = Tweet(text=tweet_text, author_id=author_id)
+    def create_tweet(self, tweet_text: str, author_id: str) -> Tweet:
+        tweet = Tweet.create(text=tweet_text, author_id=author_id)
         self.tweet_repository.add(tweet)
         return tweet
 
