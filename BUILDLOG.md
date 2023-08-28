@@ -6,7 +6,7 @@
 Started building up a frontend allowing the creation and retrieval of tweets.
 
 In order to make new tweets appear immediately, I've implemented a websocket connection to the
-backend, currently just in FastAPI, which allows me to run both a REST API and a websocket API.
+backend, currently just in `FastAPI`, which allows me to run both a REST API and a websocket API.
 
 I tried using `socket.io` but quickly learned that it's easier to just use basic websockets
 unless you have socket.io on both ends.
@@ -17,12 +17,18 @@ Still evaluating `chakra` to see if it has the components I'll need - I'd rather
 back to Material UI.
 
 Trying out `sentry.io` for profiling, error reporting, performance tracking etc. - pretty much
-look for an equivalent to AWS x-ray. It seems quite nice, we'll see how useful it is. It might
-be cool when it's integrated with both the front and back ends.
+look for an equivalent to AWS x-ray. It seems quite nice, we'll see how useful it is. I've now
+also integrated it in both backend and frontend so we'll see if it's able to give some nice
+comprehensive traces.
 
 Next step is to introduce a queuing system for events so the websocket server can be in a
-different application. I'm currently considering RabbitMQ or Redis, Kafka may be a bit overkill
-for this kind of event data.
+different application. I'm currently considering `RabbitMQ` or `Redis`, `Kafka` may be a bit
+overkill for this kind of event data.
+
+May need to work on the visuals...
+
+![Version 1](docs/images/v1.png)
+
 
 ## 2023-08-26
 
@@ -34,7 +40,6 @@ less intuitive and having to use two test runners is complicated for running tes
 coverage. I'm going to swap back to `pytest-bdd` but implement concepts such as the context. I'm
 going to copy the context class which allows a dict to act more like an object with arbitrary
 attributes to make the tests look a little nicer.
-
 ## 2023-08-25
 
 Initialised repo! 🎉
