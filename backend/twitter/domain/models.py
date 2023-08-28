@@ -25,6 +25,13 @@ class Tweet:
     def character_count(self):
         return len(self.text)
 
+    def as_dict(self):
+        return {
+            "text": self.text,
+            "author_id": self.author_id,
+            "created_date": self.created_date.isoformat(),
+        }
+
 
 class User:
     user_id: str

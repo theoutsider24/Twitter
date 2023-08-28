@@ -6,6 +6,7 @@ import { useStore } from "./store";
 import { useEffect } from "react";
 import axios from "axios";
 import { Input, InputGroup, InputRightAddon } from "@chakra-ui/react";
+import { Card, CardBody, Text, Collapse } from "@chakra-ui/react";
 
 const LogoutButton = () => {
     const { logout } = useAuth0();
@@ -28,9 +29,27 @@ const TweetList = () => {
     return (
         <ul>
             {tweets.map((tweet) => (
-                <li key={tweet.id}>{tweet.text}</li>
+                <Tweet tweet={tweet} key={tweet.created_date} />
             ))}
         </ul>
+    );
+};
+
+const Tweet = ({ tweet }) => {
+    const [rendered, setRendered] = React.useState(false);
+    useEffect(() => {
+        setInterval(() => {
+            setRendered(true);
+        }, 10);
+    }, []);
+    return (
+        <Collapse in={rendered}>
+            <Card bg="teal.500" color="white" m={1}>
+                <CardBody>
+                    <Text>{tweet.text}</Text>
+                </CardBody>
+            </Card>
+        </Collapse>
     );
 };
 
@@ -56,7 +75,15 @@ const TweetInput = () => {
 
 function App() {
     const addTweet = useStore((state) => state.addTweet);
+    const addTweetAtTop = useStore((state) => state.addTweetAtTop);
     const removeAllTweets = useStore((state) => state.removeAllTweets);
+
+    const socket = new WebSocket("ws://127.0.0.1:8000/ws");
+
+    socket.addEventListener("message", (event) => {
+        addTweetAtTop(JSON.parse(event.data));
+    });
+
     useEffect(() => {
         axios.get("http://localhost:8000/tweets").then((res) => {
             removeAllTweets();
@@ -65,6 +92,7 @@ function App() {
             });
         });
     }, []);
+
     return (
         <ChakraProvider>
             <LoginButton />

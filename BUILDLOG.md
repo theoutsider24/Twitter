@@ -1,7 +1,30 @@
 # Build Log
 
 
-## 2023-08-27
+## 2023-08-28
+
+Started building up a frontend allowing the creation and retrieval of tweets.
+
+In order to make new tweets appear immediately, I've implemented a websocket connection to the
+backend, currently just in FastAPI, which allows me to run both a REST API and a websocket API.
+
+I tried using `socket.io` but quickly learned that it's easier to just use basic websockets
+unless you have socket.io on both ends.
+
+Using `zustand` for the state management is great, super easy to create a shared state.
+
+Still evaluating `chakra` to see if it has the components I'll need - I'd rather not have to go
+back to Material UI.
+
+Trying out `sentry.io` for profiling, error reporting, performance tracking etc. - pretty much
+look for an equivalent to AWS x-ray. It seems quite nice, we'll see how useful it is. It might
+be cool when it's integrated with both the front and back ends.
+
+Next step is to introduce a queuing system for events so the websocket server can be in a
+different application. I'm currently considering RabbitMQ or Redis, Kafka may be a bit overkill
+for this kind of event data.
+
+## 2023-08-26
 
 Implemeted Auth0 - it's sooooooo easy. For now I'm trying to avoid having a user table at all
 and I'm generating user uuids in Auth0 on user registration and including them in JWT tokens.

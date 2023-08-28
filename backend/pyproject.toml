@@ -9,6 +9,9 @@ python = "^3.11"
 fastapi = "^0.102.0"
 python-jose = "^3.3.0"
 uvicorn = "^0.23.2"
+websockets = "^11.0.3"
+sentry-sdk = {extras = ["fastapi"], version = "^1.29.2"}
+pydantic-settings = "^2.0.3"
 
 
 [tool.poetry.group.test.dependencies]
