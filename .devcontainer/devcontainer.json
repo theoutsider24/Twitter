@@ -14,7 +14,9 @@
 				"GitHub.copilot",
 				"yzhang.markdown-all-in-one",
 				"esbenp.prettier-vscode",
-				"ryanluker.vscode-coverage-gutters"
+				"ryanluker.vscode-coverage-gutters",
+				"rangav.vscode-thunder-client",
+				"eamodio.gitlens"
 			],
             "settings": {
                 "python.venvPath": "/home/vscode/.cache/pypoetry/virtualenvs"
