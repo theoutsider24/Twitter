@@ -63,11 +63,22 @@ const Tweet = ({ tweet }) => {
 };
 
 const TweetInput = () => {
+    const { isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [tweet, setTweet] = React.useState("");
     const handleChange = (event) => setTweet(event.target.value);
 
-    const submitTweet = () => {
-        axios.post("http://localhost:8000/tweets", { text: tweet });
+    const submitTweet = async () => {
+        const accessToken = await getAccessTokenSilently({});
+
+        axios.post(
+            "http://localhost:8000/tweets",
+            { text: tweet },
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
     };
 
     return (
@@ -75,7 +86,9 @@ const TweetInput = () => {
             <InputGroup>
                 <Input value={tweet} onChange={handleChange}></Input>
                 <InputRightAddon>
-                    <Button onClick={submitTweet}>Submit</Button>
+                    <Button onClick={submitTweet} disabled={!isAuthenticated}>
+                        Submit
+                    </Button>
                 </InputRightAddon>
             </InputGroup>
         </>
@@ -83,6 +96,7 @@ const TweetInput = () => {
 };
 
 function App() {
+    const { isAuthenticated } = useAuth0();
     const addTweet = useStore((state) => state.addTweet);
     const addTweetAtTop = useStore((state) => state.addTweetAtTop);
     const removeAllTweets = useStore((state) => state.removeAllTweets);
@@ -104,8 +118,9 @@ function App() {
 
     return (
         <ChakraProvider>
-            <LoginButton />
-            <LogoutButton />
+            {isAuthenticated ? null : <LoginButton />}
+            {isAuthenticated ? <LogoutButton /> : null}
+
             <TweetList />
             <TweetInput />
         </ChakraProvider>
