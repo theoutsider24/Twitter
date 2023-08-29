@@ -101,11 +101,15 @@ function App() {
     const addTweetAtTop = useStore((state) => state.addTweetAtTop);
     const removeAllTweets = useStore((state) => state.removeAllTweets);
 
-    const socket = new WebSocket("ws://127.0.0.1:8001/ws");
-
-    socket.addEventListener("message", (event) => {
-        addTweetAtTop(JSON.parse(event.data));
-    });
+    useEffect(() => {
+        const socket = new WebSocket("ws://127.0.0.1:8001/ws");
+        socket.addEventListener("message", (event) => {
+            addTweetAtTop(JSON.parse(event.data));
+        });
+        return () => {
+            socket.close();
+        };
+    }, []);
 
     useEffect(() => {
         axios.get("http://localhost:8000/tweets").then((res) => {
