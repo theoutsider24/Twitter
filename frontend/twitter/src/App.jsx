@@ -1,12 +1,13 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ChakraProvider } from "@chakra-ui/react";
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import { CardFooter, CardHeader, ChakraProvider } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { useStore } from "./store";
 import { useEffect } from "react";
 import axios from "axios";
 import { Input, InputGroup, InputRightAddon } from "@chakra-ui/react";
 import { Card, CardBody, Text, Collapse } from "@chakra-ui/react";
+import Moment from "react-moment";
 
 const LogoutButton = () => {
     const { logout } = useAuth0();
@@ -45,9 +46,17 @@ const Tweet = ({ tweet }) => {
     return (
         <Collapse in={rendered}>
             <Card bg="teal.500" color="white" m={1}>
+                <CardHeader>
+                    <Text>{tweet.author_id}</Text>
+                </CardHeader>
                 <CardBody>
                     <Text>{tweet.text}</Text>
                 </CardBody>
+                <CardFooter>
+                    <Moment fromNow interval={30000} utc>
+                        {tweet.created_date}
+                    </Moment>
+                </CardFooter>
             </Card>
         </Collapse>
     );
