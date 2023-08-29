@@ -1,6 +1,14 @@
 # Build Log
 
 
+## 2023-08-29
+
+Added `redis` pubsub and split the websocket server into a separate application. I'm not very
+confident in anything `async` but it is working! Right now it's a little inefficient - each
+websocket connection is also a redis subscription which doesn't seem right but would allow
+for more custom subscription since each websocket could listen to specific channels depending on
+what the user's doing.
+
 ## 2023-08-28
 
 Started building up a frontend allowing the creation and retrieval of tweets.

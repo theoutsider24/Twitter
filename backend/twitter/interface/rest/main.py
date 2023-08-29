@@ -1,13 +1,13 @@
 import json
 
+import redis
 import sentry_sdk
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from twitter.domain.repository.tweet_repository import TweetRepositry
 from twitter.interface.settings import Settings
-from twitter.interface.websocket import ConnectionManager
 from twitter.service import TweetService
 
 tweet_repository = TweetRepositry()
@@ -18,6 +18,8 @@ sentry_sdk.init(
     dsn=settings.sentry_dsn,
     traces_sample_rate=1.0,
 )
+
+r = redis.Redis(host="redis", port=6379, db=0)
 
 app = FastAPI()
 
@@ -30,8 +32,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-manager = ConnectionManager()
 
 
 class TweetCreateRequest(BaseModel):
@@ -46,15 +46,5 @@ async def get_tweets():
 @app.post("/tweets")
 async def add_tweet(tweet: TweetCreateRequest):
     tweet = tweet_service.create_tweet(tweet.text, "1")
-    await manager.broadcast(json.dumps(tweet.as_dict()))
+    r.publish("events", json.dumps(tweet.as_dict()))
     return tweet
-
-
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await manager.connect(websocket)
-    try:
-        while True:
-            _ = await websocket.receive_text()
-    except WebSocketDisconnect:
-        manager.disconnect(websocket)

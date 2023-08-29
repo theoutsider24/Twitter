@@ -12,6 +12,7 @@ uvicorn = "^0.23.2"
 websockets = "^11.0.3"
 sentry-sdk = {extras = ["fastapi"], version = "^1.29.2"}
 pydantic-settings = "^2.0.3"
+redis = "^5.0.0"
 
 
 [tool.poetry.group.test.dependencies]

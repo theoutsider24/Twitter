@@ -78,7 +78,7 @@ function App() {
     const addTweetAtTop = useStore((state) => state.addTweetAtTop);
     const removeAllTweets = useStore((state) => state.removeAllTweets);
 
-    const socket = new WebSocket("ws://127.0.0.1:8000/ws");
+    const socket = new WebSocket("ws://127.0.0.1:8001/ws");
 
     socket.addEventListener("message", (event) => {
         addTweetAtTop(JSON.parse(event.data));
